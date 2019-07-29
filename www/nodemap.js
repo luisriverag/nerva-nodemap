@@ -1,6 +1,6 @@
 // NERVA nodemap by syzygy
 
-let	_isFirstLoad = true, _isDarkMode = false,
+let _isFirstLoad = true, _isDarkMode = false,
 	_nodecount = 0, _nodecloud = 0, _nodecountry = [], _nodecontinent = [], _nodeversion = [],
 	countries_chart = null, continents_chart = null, origin_chart = null, versions_chart = null,
 	cur_dataset = "data/connections_30d.txt",
@@ -11,7 +11,7 @@ let	_isFirstLoad = true, _isDarkMode = false,
 		'39.0438,-77.4874' : 'Washington 2',
 		'40.7357,-74.1724' : 'New York 1',
 		'40.8054,-74.0241' : 'New York 2',
-		'37.751,-97.822' : 'US Central',
+		'37.751,-97.822' : 'US central',
 		'37.3598,-121.981' : 'California 1',
 		'37.4056,-122.0775' : 'California 2',
 		'47.6107,-122.575' : 'Seattle',
@@ -23,14 +23,13 @@ let	_isFirstLoad = true, _isDarkMode = false,
 		'34.2058,117.284' : 'China 2',
 		'36.1627,-86.7816' : 'Nashville'
 	};
-	map_markers = L.markerClusterGroup({maxClusterRadius: 20});
+		map_markers = L.markerClusterGroup({maxClusterRadius: 20});
 const	map_icon = new L.Icon({ iconUrl: 'img/marker-nerva.png', shadowUrl: 'img/marker-shadow.png', iconSize: [25, 41], iconAnchor: [12, 41], popupAnchor: [1, -34], shadowSize: [41, 41] });
 
 function onPageLoad()
 {
-	$.get("getsnapshots.php", function(data)
-	{
-		let snapshots = data.split(",");
+	$.get("snapshots.php", function(data) {
+		let snapshots = data.split("<br>");
 		for (let i = 0; i < snapshots.length; i++)
 		{
 			if(snapshots[i].length) {
@@ -46,13 +45,12 @@ function onPageLoad()
 
 function init(path)
 {
-	$.when(jQuery.getJSON( path, function(){}).done(function(data)
-	{
+	$.when(jQuery.getJSON( path, function(){}).done(function(data) {
 		let nodes = data.result;
 		for (let i = 0; i <= nodes.length; i++)
 		{
 			if (typeof nodes[i] !== 'undefined') {
-				let	time = deunix(nodes[i]["time"]),
+				let time = deunix(nodes[i]["time"]),
 					latlng = [nodes[i]["lat"], nodes[i]["long"]],
 					marker = L.marker(latlng, {riseOnHover: true}, {title: i});
 				if (isLatLngCloud(latlng)) { _nodecloud ++; }
@@ -74,7 +72,7 @@ function init(path)
 
 function map_render()
 {
-	let	latlng = [25, 15],
+	let latlng = [25, 15],
 		zoom = 2;
 		bounds = L.latLngBounds([-90, -9000], [90, 9000]);
 	if(!_isFirstLoad) {
@@ -97,7 +95,7 @@ function map_render()
 
 function stats_render()
 {
-	let	countries = statify(_nodecountry),
+	let countries = statify(_nodecountry),
 		continents = statify(_nodecontinent),
 		versions = statify(_nodeversion);
 	if(!_isFirstLoad) {
@@ -111,8 +109,7 @@ function stats_render()
 	document.getElementById("count_nodes").innerHTML = _nodecount;
 	document.getElementById("count_countries").innerHTML = countries.length;
 	
-	countries_chart = new Chart(document.getElementById("countries").getContext('2d'),
-	{
+	countries_chart = new Chart(document.getElementById("countries").getContext('2d'), {
 		type: 'horizontalBar',
 		data: { datasets: [{}] },
 		options: {
@@ -130,8 +127,7 @@ function stats_render()
 	});
 	countries_chart.config.data.datasets[0].backgroundColor = gradify(9);
 		
-	continents_chart = new Chart(document.getElementById("continents").getContext('2d'),
-	{
+	continents_chart = new Chart(document.getElementById("continents").getContext('2d'), {
 		type: 'bar',
 		data: { datasets: [{}] },
 		options: {
@@ -149,8 +145,7 @@ function stats_render()
 	});
 	continents_chart.config.data.datasets[0].backgroundColor = gradify(5);
 		
-	versions_chart = new Chart(document.getElementById("version").getContext('2d'),
-	{
+	versions_chart = new Chart(document.getElementById("version").getContext('2d'), {
 		type: 'pie',
 		data: { datasets: [{ borderWidth: _isDarkMode ? 0 : 1 }] },
 		options: {
@@ -163,7 +158,7 @@ function stats_render()
 			tooltips: {
 				callbacks: {
 					label: function(tooltipItem, data) {
-						let	allData = data.datasets[tooltipItem.datasetIndex].data,
+						let allData = data.datasets[tooltipItem.datasetIndex].data,
 							tooltipLabel = data.labels[tooltipItem.index],
 							tooltipData = allData[tooltipItem.index],
 							total = 0;
@@ -177,11 +172,10 @@ function stats_render()
 	});
 	versions_chart.config.data.datasets[0].backgroundColor = gradify(versions.length);
 		
-	origin_chart = new Chart(document.getElementById("origin").getContext('2d'),
-	{
+	origin_chart = new Chart(document.getElementById("origin").getContext('2d'), {
 		type: 'pie',
 		data: {
-			labels: ["Cloud", "Residential"],
+			labels: ["Cloud Hosted", "Home Node"],
 			datasets: [{
 				data: [_nodecloud, _nodecount - _nodecloud],
 				backgroundColor: [
@@ -202,7 +196,7 @@ function stats_render()
 				tooltips: {
 					callbacks: {
 						label: function(tooltipItem, data) {
-							let	allData = data.datasets[tooltipItem.datasetIndex].data,
+							let allData = data.datasets[tooltipItem.datasetIndex].data,
 								tooltipLabel = data.labels[tooltipItem.index],
 								tooltipData = allData[tooltipItem.index],
 								total = 0;
@@ -269,14 +263,14 @@ function re_init()
 	init(cur_dataset);
 }
 
-function toggleDarkLight()
-{
+function toggleDarkLight() {
 	_isDarkMode ^= true;
-	let	navbar = document.getElementById("navbar"),
-		pages = document.getElementById("wrapper").querySelectorAll("div.page");
+	
 	document.getElementById("body").className = (_isDarkMode ? "dark-mode" : "light-mode");
 	document.getElementById("faq").className = (_isDarkMode ? "faq-darkmode" : "faq-lightmode");
-		
+	
+	let navbar = document.getElementById("navbar"),
+	 pages = document.getElementById("wrapper").querySelectorAll("div.page");
 	if (_isDarkMode) {
 		navbar.className = navbar.className.replace("navbar-lightmode", "navbar-darkmode");
 		for (let i = 0; i < pages.length; i++) { pages[i].className = pages[i].className.replace("page-lightmode", "page-darkmode"); }
@@ -292,7 +286,7 @@ function toggleDarkLight()
 
 function deunix(time)
 { // convert unix stamp to human friendly time
-	let	months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
+	let months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
 		date = new Date(time*1000),
 		month = months[date.getMonth()],
 		day = date.getDate(),
@@ -302,7 +296,7 @@ function deunix(time)
 
 function statify(array)
 { // order by frequency of values in given array
-	let	c = {},
+	let c = {},
 		s = [];
 	for (let i=0; i<=array.length; i++) {
 		c[array[i]] = c[array[i]] || 0;
@@ -317,11 +311,11 @@ function statify(array)
 
 function gradify(stops)
 { // generate nerva gradient with x color stops
-	let	color1 = [85, 168, 191, 1],
+	let color1 = [85, 168, 191, 1],
 		color2 = [99, 88, 145, 1],
 		array = [];
 	for(let i=0; i<=stops; i++) {
-		let	p = 1 / stops * i,
+		let p = 1 / stops * i,
 			w = p * 2 - 1,
 			w1 = (w/1+1) / 2,
 			w2 = 1 - w1;

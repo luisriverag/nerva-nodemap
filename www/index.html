@@ -3,22 +3,27 @@
  <head>
 	<meta charset="utf-8"/>
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<meta name="description" content="NERVA (XNV) Nodemap & Network Statistics">
-	<meta name="keywords" content="nerva, xnv, network, map, nodemap, peermap, crypto, stats">
+	<meta name="description" content="Interactive map of NERVA (XNV) users around the world">
+	<meta name="keywords" content="nerva, xnv, node, map, nodemap, crypto, stats">
+	
 	<title>NERVA (XNV) Nodemap</title>
+	
 	<link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
+	
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.5.1/leaflet.css" integrity="sha384-eS4bw6aEvhCSXWGP85ANR/N8isWKzT7P36NvcuTJGkrj6wsbxLVpXslrNXYHyseD" crossorigin="anonymous">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.4.1/MarkerCluster.css" integrity="sha384-lPzjPsFQL6te2x+VxmV6q1DpRxpRk0tmnl2cpwAO5y04ESyc752tnEWPKDfl1olr" crossorigin="anonymous">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.4.1/MarkerCluster.Default.css" integrity="sha384-5kMSQJ6S4Qj5i09mtMNrWpSi8iXw230pKU76xTmrpezGnNJQzj0NzXjQLLg+jE7k" crossorigin="anonymous">
 	<link rel="stylesheet" href="nodemap.css">
+	
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.bundle.min.js" integrity="sha384-xrRywqdh3PHs8keKZN+8zzc5TX0GRTLCcmivcbNJWm2rs5C8PRhcEn3czEjhAO9o" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.5.1/leaflet.js" integrity="sha384-bmPowDlt+owc6Mn3LwOzLPkYiVm6MuKeLMe0qN2pp7Fhmux2xtVJm5e+ekpCVv4x" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.4.1/leaflet.markercluster.js" integrity="sha384-RLIyj5q1b5XJTn0tqUhucRZe40nFTocRP91R/NkRJHwAe4XxnTV77FXy/vGLiec2" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" integrity="sha384-QzN1ywg2QLsf72ZkgRHgjkB/cfI4Dqjg6RJYQUqH6Wm8qp/MvmEYn+2NBsLnhLkr" crossorigin="anonymous"></script>
 	<script src="nodemap.js"></script>
+	<script async defer src="https://buttons.github.io/buttons.js"></script>
  </head>
  
  <body id="body" class="light-mode" onload="onPageLoad()">
@@ -40,6 +45,7 @@
 			</div>
 		</div>
 	</nav>
+	
 	<div id="wrapper" class="wrapper">
 		<div class="container">
 			<div class="data-select">
@@ -66,9 +72,7 @@
 							
 							<strong>Doesn't this compromise privacy?</strong> No personally identifiable information is being stored. A potential malicious actor could quite easily retrieve identifiable information (such as your IP address) from their node's peer list. If this is a concern, you should connect to the network through a VPN/Tor. Still, you can choose to opt out of the analytics by running nervad with the '<i>--no-analytics</i>' flag.<br /><br />
 								
-							<strong>What are the custom datasets?</strong> Currently, data is retrieved from each node when it first starts. This means we do not detect when nodes go offline, thus some of the nodes in the default dataset (last 30 days) may no longer be active. Also, some nodes may have connected more than 30 days ago, and are still online, but wont appear on the map. I have decided that 30 days is a good cutoff point, but you can choose to filter to the last 7 or 14 days for a more recent snapshot of who has (re)connected to the network. Historical data is a snapshot of the preceding 30 days, taken every month. Dates are in standard format (not US).<br /><br />
-								
-							<strong>What is probable origin?</strong> Nodes that geolocate to known co-ordinates of major datacentres (Google Cloud, etc) are flagged as cloud-hosted. It is reasonable to assume that most cloud-hosted nodes are actively mining. This statistic is a guesstimate only.
+							<strong>What are the custom datasets?</strong> Currently, data is retrieved from each node when it first starts. This means we do not detect when nodes go offline, thus some of the nodes in the default dataset (last 30 days) may no longer be active. Also, some nodes may have connected more than 30 days ago, and are still online, but wont appear on the map. I have decided that 30 days is a good cutoff point, but you can choose to filter to the last 7 or 14 days for a more recent snapshot of who has (re)connected to the network. Historical data is a snapshot of the preceding 30 days, taken at the start of each month. Dates are in standard format (not US).<br /><br />
 						</div>
 					</div>
 				</div>
@@ -83,10 +87,11 @@
 						<strong>Daemon version</strong> <span class="text-default" data-toggle="tooltip" data-placement="right" data-original-title="Most 0.1.6.4 nodes are not detected. Please update!"><i class="fa fa-exclamation-circle"></i></span><br /><br />
 						<div class="chart-container"><canvas id="version"></canvas></div><hr>
 						
-						<strong>Probable origin</strong> <span class="text-default" data-toggle="tooltip" data-placement="right" data-original-title="Read the FAQ for an explanation of this metric"><i class="fa fa-question-circle"></i></span><br /><br />
+						<strong>Possible origin</strong> <span class="text-default" data-toggle="tooltip" data-placement="right" data-original-title="This metric is not precise, we are working on a better method to determine this."><i class="fa fa-question-circle"></i></span><br /><br />
 						<div class="chart-container"><canvas id="origin"></canvas></div><hr>
 						
-						<div style="text-align: right"><small><strong>&copy; 2019 syzygy</strong></small></div>
+						<div style="text-align: right"><small>
+						<i class="fab fa-github"></i> <strong><a target="_blank" href="https://github.com/mrsyzygy/nerva-nodemap">nerva-nodemap</a> &copy; 2019 syzygy</small></strong></div>
 					</div>
 				</div>
 			</div>
