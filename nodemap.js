@@ -11,7 +11,7 @@ const map_icon = new L.Icon({ iconUrl: 'img/marker-nerva.png', shadowUrl: 'img/m
 
 function onPageLoad()
 {
-    $.when(jQuery.getJSON("https://us-central1-nerva-248022.cloudfunctions.net/analytics?type=jsonp", function(){}).done(function(data) {
+    $.when(jQuery.getJSON("https://explorer.getnerva.org/api/analytics/fetch", function(){}).done(function(data) {
         let nodes = data;
         for (let i = 0; i <= nodes.length; i++)
         {
