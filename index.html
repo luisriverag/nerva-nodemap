@@ -55,8 +55,40 @@
   
    <div class="row">
     <div class="col-md-12">
-     Due to a data glitch, the nodemap is currently undergoing maintenance and will be back soon. You can help us speed things up by restarting your node(s)!
+     Due to a data glitch, the nodemap is currently rebuilding and connected nodes may not be shown. Please restart your node(s).
+     <div id="map"></div>
     </div>
+   </div>
+   <div class="row">
+   
+    <div class="col-md-4">
+     <div class="chart-headline">
+      <strong>Nodes by country</strong>
+     </div>
+     <div class="chart-container">
+      <canvas id="countries"></canvas>
+     </div>
+	</div>
+    
+	<div class="col-md-4">
+     <div class="chart-headline">
+	  <strong>By continent</strong>
+     </div>
+	 <div class="chart-container">
+      <canvas id="continents"></canvas>
+     </div>
+	</div>
+    
+	<div class="col-md-4">
+     <div class="chart-headline">
+	  <strong>Daemon version</strong>
+      <span class="text-default" data-toggle="tooltip" data-placement="right" data-original-title="Most 0.1.6.4 nodes are not detected. Please update!"><i class="fa fa-exclamation-circle"></i></span>
+     </div>
+	 <div class="chart-container">
+      <canvas id="version"></canvas>
+     </div>
+	</div>
+    
    </div>
    
    <div style="text-align: center">
