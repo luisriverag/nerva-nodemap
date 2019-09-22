@@ -20,7 +20,7 @@ function onPageLoad()
                     latlng = [nodes[i]["lat"], nodes[i]["long"]],
                     marker = L.marker(latlng, {riseOnHover: true}, {title: i});
                 node_count ++;
-                node_vers[i] = (nodes[i]["version"] == "0.0.0.0" /*Peerlist import*/ ? "0.1.6.4" : nodes[i]["version"]); 
+                node_vers[i] = (nodes[i]["version"] == "0.0.0.0" /*Peerlist import*/ ? "<=0.1.6.8" : nodes[i]["version"]); 
                 node_cc[i] = nodes[i]["cc"];
                 node_cn[i] = nodes[i]["cn"];
 
