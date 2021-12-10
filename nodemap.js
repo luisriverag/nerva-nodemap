@@ -1,5 +1,5 @@
 // NERVA nodemap by syzygy
-// map.getnerva.org
+// map.nerva.one
 
 let node_count = 0, node_cc = [], node_cn = [], node_vers = [],
     chart_cc = null, chart_cn = null, chart_vers = null,
@@ -11,12 +11,12 @@ const map_icon = new L.Icon({ iconUrl: 'img/marker-nerva.png', shadowUrl: 'img/m
 
 function onPageLoad()
 {
-    $.when(jQuery.getJSON("https://us-central1-nerva-248022.cloudfunctions.net/analytics?type=jsonp", function(){}).done(function(data) {
-        let nodes = data;
+    $.when(jQuery.getJSON("https://api.nerva.one/analytics/fetch/", function(){}).done(function(data) {
+        let nodes = data.result;
         for (let i = 0; i <= nodes.length; i++)
         {
             if (typeof nodes[i] !== 'undefined') {
-                let time = deunix(nodes[i]["time"]),
+                let time = nodes[i]["time"],
                     latlng = [nodes[i]["lat"], nodes[i]["long"]],
                     marker = L.marker(latlng, {riseOnHover: true}, {title: i});
                 node_count ++;
@@ -47,7 +47,7 @@ function map_render()
      attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery &copy; <a href="https://www.mapbox.com/">Mapbox</a>',
      maxZoom: 10,
      id: 'mapbox/streets-v11',
-     accessToken: 'pk.eyJ1IjoiamFja2hhcnBlciIsImEiOiJjanM5bWdybjExbzJxNDRudGU0Z3F0M2J1In0.D5ZUzq5xeur4rvpkS3je0Q'
+     accessToken: 'pk.eyJ1IjoicjBiYzBkM3IiLCJhIjoiY2t3em9vYWhkMHd3MDJwcW9tNnN4NGhpNyJ9.OlqG06vAc_7QwbKI2CeuTA'
     }).addTo(map);
     
     map.addLayer(map_markers);
