@@ -126,11 +126,11 @@ function stats_render()
     
     // Import data
     
-    for (let i=0; i<= 9; i++) {
+    for (let i=0; i<=9; i++) {
         countries[i][0] = getCountryName(countries[i][0]);
         addChartData(chart_cc, countries[i][0], countries[i][1]);
     }
-    for (let i=0; i<=5; i++) {
+    for (let i=0; i<=continents.length - 2; i++) {
         continents[i][0] = getContinentName(continents[i][0]);
         addChartData(chart_cn, continents[i][0], continents[i][1]);
     }
